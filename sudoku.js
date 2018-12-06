@@ -28,6 +28,86 @@ var workingBoard = []; // board used by algorithm to solve
 var solvedBoard = [];
 
 /**
+ * Although each board is a global variable, it is better
+ *   to interact with them through functions (outside of this file).
+ * 
+ * I should probably hold all of these variables and functions in
+ *   a sudoku class, but for the purposes of this little project,
+ *   who cares.
+ */
+
+/**
+ * get userBoard reference
+ * @return {number[][]}
+ */
+function getUserBoard (){
+  return baseBoard;
+}
+
+/**
+ * get solvedBoard reference
+ * @return {number[][]}
+ */
+function getSolvedBoard (){
+  return solvedBoard;
+}
+
+/**
+ * get copy of userBoard
+ * @return {number[][]}
+ */
+function getCopyOfUserBoard (){
+  return copyBoard(userBoard);
+}
+
+/**
+ * get copy of solvedBoard
+ * @return {number[][]}
+ */
+function getCopyOfSolvedBoard (){
+  return copyBoard(solvedBoard);
+}
+
+/**
+ * 
+ * @param {number} row 
+ * @param {number} col 
+ * @return {number}
+ */
+function getValueFromUserBoard (row, col){
+  return userBoard[row][col];
+}
+
+/**
+ * 
+ * @param {number} row 
+ * @param {number} col 
+ * @return {number}
+ */
+function getValueFromSolvedBoard (row, col){
+  return solvedBoard[row][col];
+}
+
+/**
+ * 
+ * @param {number} row 
+ * @param {number} col 
+ * @param {number} value 
+ */
+function putValueInUserBoard (row, col, value){
+  if (value > 9 || value < 0) {
+    value = 0;
+  }
+  userBoard[row][col] = value;
+}
+
+function clearUserBoard (){
+  userBoard = userBoard.map(arr => {
+    return arr.fill(0);
+  });
+}
+
+/**
  * attempt to solve the userBoard
  * 
  * @return {boolean}

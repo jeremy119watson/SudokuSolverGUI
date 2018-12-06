@@ -12,32 +12,42 @@
   </head>
 
   <body>
-    <div class="l">
+    <div class="grid-layout">
       <div class="gamebox" id="boardArea"></div>
       <div class="grid-buttons">
         <div class="instructions">
           <p>
-            Enter numbers into the Sudoku board and find a solution if one exists.
+            Enter numbers into the Sudoku board and find a solution if one
+            exists.
           </p>
           <p>
-            Click <span class="word-button back-yellow">check</span> to check if the puzzle is solvable. 
+            Click <span class="word-button back-yellow">check</span> to check if
+            the puzzle is solvable.
           </p>
           <p>
-              Click <span class="word-button back-yellow">solve</span> to try and solve the puzzle.
+            Click <span class="word-button back-yellow">solve</span> to try and
+            solve the puzzle.
           </p>
           <p>
-              Click <span class="word-button back-blue">clear</span> to clear the board.
+            Click <span class="word-button back-blue">clear</span> to clear the
+            board.
           </p>
         </div>
         <div class="buttons">
-          <button class="btn back-yellow" onclick="tryToSolve(false);">check</button>
+          <button class="btn back-yellow" onclick="tryToSolve(false);">
+            check
+          </button>
           <p>solvable: <span id="solveStatus">unknown</span></p>
-          <br>
-          <button class="btn back-yellow" onclick="tryToSolve(true);" id="solveButton">
+          <br />
+          <button
+            class="btn back-yellow"
+            onclick="tryToSolve(true);"
+            id="solveButton"
+          >
             solve
           </button>
-          <br>
-          <button class="btn back-blue" onclick="clearAllBoxes();">
+          <br />
+          <button class="btn back-blue" onclick="clearAllValues();">
             clear
           </button>
         </div>

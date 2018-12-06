@@ -1,38 +1,40 @@
 /**
- * reject non-numerical input
- * 
- * @param {*} evt 
- * @return {boolean}
+ * enforce that box input is a single digit and update userboard
+ *
+ * @param {string} id
+ * @param {number} row
+ * @param {number} col
  */
-function isValidKey(evt) {
-  var charCode = evt.which ? evt.which : evt.keyCode;
-  // solve status might have changed (backspace) or (delete)
-  //  may not have even deleted a number but play it safe, I suppose
-  if(charCode == 8 || charCode == 46){
-    updateSolveStatus(null);
+function boxInput(id, row, col) {
+  let box = document.getElementById(id);
+  let value = box.value;
+  if (value.length > 1) {
+    box.value = value.slice(0, 1);
   }
-  if (charCode > 31 && (charCode < 49 || charCode > 57)) {
-    return false;
+  let intValue = parseInt(box.value);
+  if (!intValue) {
+    box.value = "";
+    putValueInUserBoard(row, col, 0);;
+  } else {
+    let previousValue = getValueFromUserBoard(row, col);
+    if (intValue != previousValue) {
+      putValueInUserBoard(row, col, intValue);
+      updateSolveStatus(null);
+    }
   }
-  // solve status could have changed
-  updateSolveStatus(null);
-  return true;
-};
+}
 
-function clear() {
-  clearAllBoxes();
-};
-
-function clearAllBoxes() {
-  doForAllBoxes((box) => {
+function clearAllValues() {
+  doForAllBoxes(box => {
     box.value = "";
   });
+  clearUserBoard();
   updateSolveStatus(true);
-};
+}
 
 /**
- * 
- * @param {function} fcn 
+ *
+ * @param {function} fcn
  */
 function doForAllBoxes(fcn) {
   for (let row = 0; row < 9; row++) {
@@ -41,78 +43,61 @@ function doForAllBoxes(fcn) {
       fcn(box, row, col);
     }
   }
-};
+}
 
 /**
- * 
- * @param {boolean} showSolvedBoard 
+ *
+ * @param {boolean} showSolvedBoard
  */
 function tryToSolve(showSolvedBoard) {
-  copyToUserBoard();
 
   let solved = solve();
   if (solved && showSolvedBoard) {
-    fillFromSolvedBoard();
+    fillBoxesFromSolvedBoard();
   }
   updateSolveStatus(solved);
-};
+}
 
 /**
- * 
- * @param {boolean} isSolvable 
+ *
+ * @param {boolean} isSolvable
  */
-function updateSolveStatus (isSolvable){
+function updateSolveStatus(isSolvable) {
   let solveStatus = document.getElementById("solveStatus");
 
   if (isSolvable) {
     solveStatus.innerHTML = "yes";
     solveStatus.style.color = "green";
-  } else if(isSolvable == false) {
+  } else if (isSolvable == false) {
     solveStatus.innerHTML = "no";
     solveStatus.style.color = "red";
-  }
-  else{
+  } else {
     solveStatus.innerHTML = "?";
     solveStatus.style.color = "grey";
   }
-};
+}
 
-
-function copyToBaseBoard() {
+function updateAllValuesOfUserBoard() {
   doForAllBoxes((box, row, col) => {
-    if (box.value == "") {
-      baseBoard[row][col] = 0;
-    } else {
-      baseBoard[row][col] = parseInt(box.value);
-    }
+    let value = box.value;
+    let intValue = value == "" ? 0 : parseInt(value);
+    putValueInUserBoard(row, col, intValue);
   });
-};
+}
 
-function copyToUserBoard() {
+function fillBoxesFromUserBoard() {
   doForAllBoxes((box, row, col) => {
-    if (box.value == "") {
-      userBoard[row][col] = 0;
-    } else {
-      userBoard[row][col] = parseInt(box.value);
-    }
+    let value = getValueFromUserBoard(row, col);
+    box.value = value == 0 ? "" : value;
   });
-};
+}
 
-function fillFromBaseBoard() {
+function fillBoxesFromSolvedBoard() {
   doForAllBoxes((box, row, col) => {
-    if (baseBoard[row][col] == 0) {
-      box.value = "";
-    } else {
-      box.value = baseBoard[row][col];
-    }
+    box.value = getValueFromSolvedBoard(row, col);
   });
-};
-
-function  fillFromSolvedBoard() {
-  doForAllBoxes((box, row, col) => {
-    box.value = solvedBoard[row][col];
-  });
-};
+  updateAllValuesOfUserBoard();
+}
 
 function createSudokuBoard(divID) {
   let div = document.getElementById(divID);
@@ -127,13 +112,15 @@ function createSudokuBoard(divID) {
         colorbox = "greybox";
       }
       div.innerHTML +=
-        '<input type="text" id="bid' +
+        '<input type="tel" id="bid' +
         coord +
         '" class="box b' +
         coord +
         " " +
         colorbox +
-        '" maxlength="1" onkeypress="return isValidKey(event,' +
+        '" min="1" max="9" oninput="boxInput(\'bid' +
+        coord +
+        "'," +
         row +
         "," +
         col +
@@ -143,10 +130,10 @@ function createSudokuBoard(divID) {
         ';">';
     }
   }
-};
+}
 
 function init() {
   createSudokuBoard("boardArea");
-  fillFromBaseBoard();
+  fillBoxesFromUserBoard();
   tryToSolve(false);
-};
+}

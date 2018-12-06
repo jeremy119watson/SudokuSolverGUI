@@ -1,4 +1,4 @@
-.l {
+.grid-layout {
   height: 95vh;
   display: grid;
   grid-template-columns: 1fr min-content 360px 1fr;
@@ -9,7 +9,6 @@
     ". . . .";
   grid-gap: 20px;
 }
-
 
 .grid-buttons {
   grid-area: buttons;
@@ -95,6 +94,15 @@
   margin: 0px;
   padding: 0px;
 }
+
+/* input[type="number"]{
+  -moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+} */
 
 .whitebox {
   background-color: white;
