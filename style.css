@@ -15,7 +15,29 @@
   grid-area: buttons;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.instructions {
+  border: solid black 1px;
+}
+
+.instructions p {
+  padding: 0px 10px;
+  font-size: 14pt;
+}
+
+.word-button {
+  border-radius: 20px;
+  padding: 0px 10px;
+}
+
+.back-yellow {
+  background-color: rgb(255, 191, 0);
+}
+
+.back-blue {
+  background-color: rgb(61, 189, 248);
 }
 
 .buttons {
@@ -33,7 +55,6 @@
 .btn {
   width: 130px;
   height: 40px;
-  background-color: rgb(255, 191, 0);
   color: black;
   font-size: 18pt;
   border: none;
@@ -41,10 +62,6 @@
   padding: 0px 20px;
   display: inline-block;
   border-radius: 20px;
-}
-
-.btn-clear {
-    background-color: rgb(61, 189, 248);
 }
 
 .gamebox {
