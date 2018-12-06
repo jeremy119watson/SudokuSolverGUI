@@ -58,12 +58,12 @@ function solve() {
 
   // exit if now empty square found
   if (emptyRow == -1) {
-    return;
+    return verifySolution(workingBoard);
   }
 
   let isSolved = backtrackSolve(emptyRow, emptyCol);
   if (isSolved) {
-    isSolved = verifySolution();
+    isSolved = verifySolution(workingBoard);
   }
 
   if (isSolved) {
@@ -191,13 +191,14 @@ function getSquareCoordinates(rowOrCol) {
 /**
  * check if solution is correct
  * 
+ * @param {number[][]} board
  * @return {boolean}
  */
-function verifySolution() {
+function verifySolution(board) {
   for (let row = 0; row < 9; row++) {
     let numbers = [1, 1, 1, 1, 1, 1, 1, 1, 1];
     for (let col = 0; col < 9; col++) {
-      let num = workingBoard[row][col];
+      let num = board[row][col];
       if (num > 9 || num < 1 || --numbers[num - 1] < 0) {
         return false;
       }

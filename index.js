@@ -2,12 +2,20 @@
  * reject non-numerical input
  * 
  * @param {*} evt 
- * @returns {boolean}
+ * @return {boolean}
  */
 function isValidKey(evt) {
-  var charCode = evt.which ? evt.which : event.keyCode;
-  if (charCode > 31 && (charCode < 49 || charCode > 57)) return false;
-
+  var charCode = evt.which ? evt.which : evt.keyCode;
+  // solve status might have changed (backspace) or (delete)
+  //  may not have even deleted a number but play it safe, I suppose
+  if(charCode == 8 || charCode == 46){
+    updateSolveStatus(null);
+  }
+  if (charCode > 31 && (charCode < 49 || charCode > 57)) {
+    return false;
+  }
+  // solve status could have changed
+  updateSolveStatus(null);
   return true;
 };
 
@@ -59,9 +67,13 @@ function updateSolveStatus (isSolvable){
   if (isSolvable) {
     solveStatus.innerHTML = "yes";
     solveStatus.style.color = "green";
-  } else {
+  } else if(isSolvable == false) {
     solveStatus.innerHTML = "no";
     solveStatus.style.color = "red";
+  }
+  else{
+    solveStatus.innerHTML = "?";
+    solveStatus.style.color = "grey";
   }
 };
 
