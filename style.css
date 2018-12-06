@@ -1,0 +1,85 @@
+.l {
+  height: 95vh;
+  display: grid;
+  grid-template-columns: 1fr min-content 360px 1fr;
+  grid-template-rows: 1fr 450px 2fr;
+  grid-template-areas:
+    ". . . ."
+    ". board buttons ."
+    ". . . .";
+  grid-gap: 20px;
+}
+
+
+.grid-buttons {
+  grid-area: buttons;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(4, 1fr);
+}
+
+.buttons {
+  grid-row: 4;
+}
+
+.buttons p {
+  display: inline-block;
+  font-size: 18pt;
+  padding: 0px 10px;
+  margin: 0px;
+}
+
+
+.btn {
+  width: 130px;
+  height: 40px;
+  background-color: rgb(255, 191, 0);
+  color: black;
+  font-size: 18pt;
+  border: none;
+  margin: 5px 15px;
+  padding: 0px 20px;
+  display: inline-block;
+  border-radius: 20px;
+}
+
+.btn-clear {
+    background-color: rgb(61, 189, 248);
+}
+
+.gamebox {
+  grid-area: board;
+  display: grid;
+  grid-template-columns: 50px 50px 50px 50px 50px 50px 50px 50px 50px;
+  grid-template-rows: 50px 50px 50px 50px 50px 50px 50px 50px 50px;
+  background-color: goldenrod;
+  grid-template-areas:
+    "b00 b01 b02 b03 b04 b05 b06 b07 b08"
+    "b10 b11 b12 b13 b14 b15 b16 b17 b18"
+    "b20 b21 b22 b23 b24 b25 b26 b27 b28"
+    "b30 b31 b32 b33 b34 b35 b36 b37 b38"
+    "b40 b41 b42 b43 b44 b45 b46 b47 b48"
+    "b50 b51 b52 b53 b54 b55 b56 b57 b58"
+    "b60 b61 b62 b63 b64 b65 b66 b67 b68"
+    "b70 b71 b72 b73 b74 b75 b76 b77 b78"
+    "b80 b81 b82 b83 b84 b85 b86 b87 b88";
+}
+
+.box {
+  width: 50px;
+  height: 50px;
+  border: solid black 1px;
+  text-align: center;
+  font-size: 40px;
+  color: black;
+  margin: 0px;
+  padding: 0px;
+}
+
+.whitebox {
+  background-color: white;
+}
+
+.greybox {
+  background-color: rgb(201, 201, 201);
+}

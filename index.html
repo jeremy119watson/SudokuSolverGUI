@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Sudoku Solver</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <script src="index.js"></script>
+    <script src="sudoku.js"></script>
+  </head>
+
+  <body>
+    <div class="l">
+      <div class="gamebox" id="boardArea"></div>
+
+      <div class="grid-buttons">
+        <div class="buttons">
+          <button class="btn" onclick="tryToSolve(false);">check</button>
+          <p>solvable: <span id="solveStatus">unknown</span></p>
+          <br>
+          <button class="btn" onclick="tryToSolve(true);" id="solveButton">
+            solve
+          </button>
+          <br>
+          <button class="btn btn-clear" onclick="clearAllBoxes();">
+            clear
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      init();
+    </script>
+  </body>
+</html>
